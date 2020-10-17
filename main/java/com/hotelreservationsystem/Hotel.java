@@ -18,11 +18,15 @@ public class Hotel
 		this.hotelName = hotelName;
 	}
 
-	public int getRegularCustRate() {
+	public int getRegularCustomerRate() {
 		return regularCustomerRate;
 	}
 
-	public void setRegularCustRate(int regularCustomerRate) {
+	public void setRegularCustomerRate(int regularCustomerRate) {
 		this.regularCustomerRate = regularCustomerRate;
+	}
+	@Override
+	public String toString() {
+		return "Hotel Name: " + hotelName + ", Regular Rate: $" + regularCustomerRate;
 	}
 }

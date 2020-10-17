@@ -1,4 +1,7 @@
 package com.hotelreservationsystem;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 public class HotelReservation 
 {
@@ -10,8 +13,8 @@ public class HotelReservation
 		{
 		System.out.println("Add a hotel:");
         System.out.println("Enter Hotel Name:");
-        String hotelName=sc.nextLine();
-        System.out.println("Enter rate for regular customer");
+        String hotelName=sc.next();
+        System.out.println("Enter rate for regular customer:");
         int regularCustomerRate=sc.nextInt();
 		Hotel hotel=new Hotel(hotelName,regularCustomerRate);
 		hotelList.add(hotel);
@@ -21,9 +24,38 @@ public class HotelReservation
 			break;
 		}
 	}
-    public static void main( String[] args )
+	public static void getCheapestHotel()
+	{
+		Date startDate=null;
+		Date endDate=null;
+		System.out.println("Enter Start Date in ddMMMYYYY");
+		String start=sc.next();
+		System.out.println("Enter end date in ddMMMYYYY");
+		String end=sc.next();
+		try {
+			startDate = new SimpleDateFormat("ddMMMyyyy").parse(start);
+			endDate = new SimpleDateFormat("ddMMMyyyy").parse(end); 
+			}
+		catch (ParseException e) 
+		{
+			e.printStackTrace();
+		} 
+		long numberOfDays = (endDate.getTime()- startDate.getTime())/1000/60/60/24;
+		int minCost = hotelList.get(0).getRegularCustomerRate();
+		String cheapestHotelName = hotelList.get(0).getHotelName();
+		for(int i = 1; i < hotelList.size(); i++) 
+			if(hotelList.get(i).getRegularCustomerRate()< minCost) {
+				minCost = hotelList.get(i).getRegularCustomerRate();
+				cheapestHotelName = hotelList.get(i).getHotelName();
+			}
+		System.out.println(cheapestHotelName+" ,Total Cost: "+minCost*numberOfDays);
+	}
+	public static void main( String[] args )
     {
         System.out.println( "Welcome to Hotel Reservation System");
         addHotel();
+        System.out.println("Enter dates for finding cheapest hotel");
+        getCheapestHotel();
+        System.out.println(hotelList);
     }
 }

@@ -10,4 +10,9 @@ public class HotelReservationTest
     	HotelReservation hotelReservation = new HotelReservation();
         assertTrue(true);
     }
+    @Test
+    public void whenHotelsAddedShouldReturnCheapestHotel()
+    {
+    	assertTrue(true);
+    }
 }
