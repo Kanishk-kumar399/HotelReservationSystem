@@ -121,13 +121,9 @@ public class HotelReservation
 			Hotel hotel = new Hotel(hotelName, weekdayRate, weekendRate, weekdayRateReward, weekendRateReward, rating);
 			hotelList.add(hotel);
 		}
-        CustomerCategory customerCategory=new CustomerCategory();
+       
         System.out.println("Enter the type of customer you are :1 for regular customer:2 for reward customer");
         int choice=sc.nextInt();
-        if(choice==1)
-        	customerCategory.setCustomerType("Regular");
-        else
-        	customerCategory.setCustomerType("Reward");
         System.out.println("Enter dates for finding best rated cheapest hotels");
         getCheapestBestRatedHotel(choice);
         System.out.println(hotelList);
