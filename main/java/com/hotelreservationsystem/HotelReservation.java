@@ -1,6 +1,9 @@
 package com.hotelreservationsystem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 public class HotelReservation 
@@ -14,9 +17,11 @@ public class HotelReservation
 		System.out.println("Add a hotel:");
         System.out.println("Enter Hotel Name:");
         String hotelName=sc.next();
-        System.out.println("Enter rate for regular customer:");
-        int regularCustomerRate=sc.nextInt();
-		Hotel hotel=new Hotel(hotelName,regularCustomerRate);
+        System.out.println("Enter weekday rate");
+        int weekdayRate=sc.nextInt();
+        System.out.println("Enter weekend rate");
+        int weekendRate=sc.nextInt();
+		Hotel hotel=new Hotel(hotelName,weekdayRate,weekendRate);
 		hotelList.add(hotel);
 		System.out.println("Do You Want to add More hotel(Y/N)");
 		char choice=sc.next().charAt(0);
@@ -26,29 +31,21 @@ public class HotelReservation
 	}
 	public static void getCheapestHotel()
 	{
-		Date startDate=null;
-		Date endDate=null;
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("ddMMMyyyy");
 		System.out.println("Enter Start Date in ddMMMYYYY");
 		String start=sc.next();
 		System.out.println("Enter end date in ddMMMYYYY");
 		String end=sc.next();
-		try {
-			startDate = new SimpleDateFormat("ddMMMyyyy").parse(start);
-			endDate = new SimpleDateFormat("ddMMMyyyy").parse(end); 
-			}
-		catch (ParseException e) 
-		{
-			e.printStackTrace();
-		} 
-		long numberOfDays = (endDate.getTime()- startDate.getTime())/1000/60/60/24;
-		int minCost = hotelList.get(0).getRegularCustomerRate();
-		String cheapestHotelName = hotelList.get(0).getHotelName();
-		for(int i = 1; i < hotelList.size(); i++) 
-			if(hotelList.get(i).getRegularCustomerRate()< minCost) {
-				minCost = hotelList.get(i).getRegularCustomerRate();
-				cheapestHotelName = hotelList.get(i).getHotelName();
-			}
-		System.out.println(cheapestHotelName+" ,Total Cost: "+minCost*numberOfDays);
+		LocalDate startDate = LocalDate.parse(start, dateFormat);
+		LocalDate endDate = LocalDate.parse(end, dateFormat);
+		final DayOfWeek startW = startDate.getDayOfWeek();
+	    final DayOfWeek endW = endDate.getDayOfWeek();
+	    long days = ChronoUnit.DAYS.between(startDate, endDate);
+	    long daysWithoutWeekends = days - 2 * ((days + startW.getValue())/7);
+	    //adjust for starting and ending on a Sunday:
+	    long weekdays= daysWithoutWeekends + (startW == DayOfWeek.SUNDAY ? 1 : 0) + (endW == DayOfWeek.SUNDAY ? 1 : 0);
+		long weekend= days-daysWithoutWeekends;
+		int minCost = (int) (hotelList.get(0).weekdayRate*weekdays + hotelList.get(0).weekendRate*weekend);
 	}
 	public static void main( String[] args )
     {
