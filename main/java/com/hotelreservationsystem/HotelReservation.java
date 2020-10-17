@@ -11,24 +11,10 @@ public class HotelReservation
 {
 	static Scanner sc=new Scanner(System.in);
 	private static List<Hotel> hotelList=new ArrayList<>();
-	public static void addHotel()
+	public static void addHotel(String hotelName,int weekdayRate,int weekendRate,int rating)
 	{
-		while(true)
-		{
-		System.out.println("Add a hotel:");
-        System.out.println("Enter Hotel Name:");
-        String hotelName=sc.next();
-        System.out.println("Enter weekday rate");
-        int weekdayRate=sc.nextInt();
-        System.out.println("Enter weekend rate");
-        int weekendRate=sc.nextInt();
-		Hotel hotel=new Hotel(hotelName,weekdayRate,weekendRate);
+		Hotel hotel=new Hotel(hotelName,weekdayRate,weekendRate,rating);
 		hotelList.add(hotel);
-		System.out.println("Do You Want to add More hotel(Y/N)");
-		char choice=sc.next().charAt(0);
-		if(choice!='Y')
-			break;
-		}
 	}
 	public static void getCheapestHotel()
 	{
@@ -77,12 +63,15 @@ public class HotelReservation
 			 if(hotelList.get(i).getTotalCost()==minimumCost)
 			cheapestHotelNameList.add(hotelList.get(i).getHotelName());
 		 }
-		 System.out.println("Cheapest Hotels are: "+cheapestHotelNameList+" with tota price $"+minimumCost);
+		 System.out.println("Cheapest Hotels are: "+cheapestHotelNameList+" with total price $"+minimumCost);
 	}
 	public static void main( String[] args )
     {
+		HotelReservation hotelReservation=new HotelReservation();
         System.out.println( "Welcome to Hotel Reservation System");
-        addHotel();
+        hotelReservation.addHotel("Lakewood", 110, 90, 3);
+        hotelReservation.addHotel("Bridgewood", 150, 50, 4);
+        hotelReservation.addHotel("Ridgewood", 220, 150, 5);
         System.out.println("Enter dates for finding cheapest hotel");
         getCheapestHotel();
         System.out.println(hotelList);

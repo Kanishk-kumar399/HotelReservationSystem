@@ -6,7 +6,7 @@ public class Hotel
 	public int weekdayRate;
 	public int weekendRate;
 	public long totalCost;
-	
+	public int hotelRating;
 	public long getTotalCost() {
 		return totalCost;
 	}
@@ -15,11 +15,12 @@ public class Hotel
 		this.totalCost = totalRate;
 	}
 
-	public Hotel(String hotelName, int weekdayRate, int weekendRate) {
+	public Hotel(String hotelName, int weekdayRate, int weekendRate,int hotelRating) {
 		super();
 		this.hotelName = hotelName;
 		this.weekdayRate = weekdayRate;
 		this.weekendRate = weekendRate;
+		this.hotelRating=hotelRating;
 	}
 
 	public String getHotelName() {
