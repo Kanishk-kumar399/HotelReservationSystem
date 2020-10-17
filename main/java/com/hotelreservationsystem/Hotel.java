@@ -77,6 +77,6 @@ public class Hotel
 
 	@Override
 	public String toString() {
-		return "Hotel Name: " + hotelName + ", Weekday Rate: $" + weekdayRate+ ", Weekend Rate: $" + weekendRate+"\n";
+		return "Hotel Name: " + hotelName + ", Weekday Rate for regular: $" + weekdayRate+ ", Weekend Rate for regular: $" + weekendRate+"\n"+", Weekday Rate for reward: $" + weekdayRateReward+ ", Weekend Rate for reward: $" + weekendRateReward+"\n";
 	}
 }
