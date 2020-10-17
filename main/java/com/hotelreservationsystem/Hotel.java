@@ -23,6 +23,14 @@ public class Hotel
 		this.hotelRating=hotelRating;
 	}
 
+	public int getHotelRating() {
+		return hotelRating;
+	}
+
+	public void setHotelRating(int hotelRating) {
+		this.hotelRating = hotelRating;
+	}
+
 	public String getHotelName() {
 		return hotelName;
 	}

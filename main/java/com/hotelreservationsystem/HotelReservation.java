@@ -7,10 +7,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-public class HotelReservation 
+import java.util.stream.Collectors;
+public class HotelReservation
 {
 	static Scanner sc=new Scanner(System.in);
-	private static List<Hotel> hotelList=new ArrayList<>();
+	private static List<Hotel> hotelList=new ArrayList<Hotel>();
 	public static void addHotel(String hotelName,int weekdayRate,int weekendRate,int rating)
 	{
 		Hotel hotel=new Hotel(hotelName,weekdayRate,weekendRate,rating);
@@ -57,13 +58,23 @@ public class HotelReservation
 	        	 if(hotel.getTotalCost()<minimumCost)
 					 minimumCost=hotel.getTotalCost();
 	     }
-		 List<String> cheapestHotelNameList=new ArrayList<>();
+		 List<Hotel> cheapestHotelNameList=new ArrayList<Hotel>();
+		 int maxRating=0;
+		 String hotelWithHighestratingandCheapest="";
+		 int c=0;
 		 for(int i = 0; i < hotelList.size(); i++) 
 		 {
 			 if(hotelList.get(i).getTotalCost()==minimumCost)
-			cheapestHotelNameList.add(hotelList.get(i).getHotelName());
+			 {
+				 cheapestHotelNameList.add(hotelList.get(i));
+				 if(hotelList.get(i).hotelRating>=maxRating)
+				 {
+					 maxRating=hotelList.get(i).hotelRating;
+					 hotelWithHighestratingandCheapest=hotelList.get(i).getHotelName();
+				 }
+			 }
 		 }
-		 System.out.println("Cheapest Hotels are: "+cheapestHotelNameList+" with total price $"+minimumCost);
+		 System.out.println("Cheapest Hotel is: "+hotelWithHighestratingandCheapest+" with rating "+maxRating+" with total price $"+minimumCost);
 	}
 	public static void main( String[] args )
     {
