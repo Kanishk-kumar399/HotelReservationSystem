@@ -1,18 +1,24 @@
 package com.hotelreservationsystem;
 
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import junit.framework.Assert;
 public class HotelReservationTest 
 {
     @Test
-    public void whenHotelsAddedShouldPass()
+	public void WhenHotelsAdded_ShouldReturnCount()
     {
-    	HotelReservation hotelReservation = new HotelReservation();
-        assertTrue(true);
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 110, 90, 80, 80, 3);
+		int count=hotelReservation.countNoOfHotels();
+		Assert.assertEquals(1, count);
     }
     @Test
-    public void whenHotelsAddedShouldReturnCheapestHotel()
+    public void WhenRegularCustomerSearchIsDoneByProvding2Dtaes_ShouldShow_CorrectOutput()
     {
-    	assertTrue(true);
+    	HotelReservation hotelReservation = new HotelReservation();
+    	hotelReservation.addHotel("Lakewood", 110, 90,80,80,3);
+        hotelReservation.addHotel("Bridgewood",150,50,110,50,4);
+        hotelReservation.addHotel("Ridgewood",220,150,100,40,5);
+        
     }
 }
